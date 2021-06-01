@@ -1,0 +1,61 @@
+<head><!-- CSS only --><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"><script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> <style>p,div{font-size:18px;}.t-a-c{text-align:center;}.body{width:65%;margin:auto;}.bold{font-size:32px;font-weight:bold;}.hover:hover{cursor:pointer;background-color:gray;color:white;}.syntax-cont{text-align:left;width:50%;margin:auto;padding-top:160px;}#fade-in-69702175{opacity:5%;transition:opacity 0.8s;}#fade-in-69702175-now{opacity:100%;transition:opacity 6s;}#fade-in-40634219{opacity:5%;transition:opacity 0.8s;}#fade-in-40634219-now{opacity:100%;transition:opacity 6s;}</style><script type="text/javascript"> window.addEventListener("load", on_page_load_init); function on_page_load_init() {var el = document.getElementById("fade-in-69702175");   if(isScrolledIntoView(el)) {   el.id = "fade-in-69702175-now";}var el = document.getElementById("fade-in-40634219");   if(isScrolledIntoView(el)) {   el.id = "fade-in-40634219-now";}}window.onscroll = function(e){var els = document.getElementsByTagName("*");for(var i=0; i<els.length; i++) {   if(isScrolledIntoView(els[i]) && els[i].id.includes("fade-in")) {       if(els[i].id.includes("-now") == false)           els[i].id = els[i].id + "-now";   }} 
+var elss = document.getElementsByTagName("*");for(i=0; i<elss.length; i++) {   if(isScrolledIntoView(elss[i]) && window.jQuery.hasData(elss[i])) {       var _data = e.currentTarget.window.jQuery.data(elss[i]);       var _anim = _data["animation"];       var _anim_length = JSON.stringify(_data["animation_length"]);       $("#" + elss[i].id).animate(_anim,_anim_length,function(){});       elss[i].classList.add("slide-in-horiz-now");       elss[i].classList.remove("slide-in-horiz");   }} 
+}
+function isScrolledIntoView(el) {if(!el){ return false;}var rect = el.getBoundingClientRect();var elemTop = rect.top;var elemBottom = rect.bottom;var isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);var _new = parseInt(elemTop) + parseInt(document.body.scrollTop);return isVisible;}
+</script></head><body><div  style="background-color:transparent;"><div class="t-a-c" style="font-size:42px;">Vapor Language<p style="margin-bottom:60px;">Vapor (vLang) is a language that sits on top of python</p></div><div class="row" style="text-align:center;width:50%;margin:auto;"><p class="col hover">Home</p><p class="col hover" onClick="window.location.href='file:///C:/Users/Marc/PycharmProjects/vapor_language/HTML/syntaxx.html'; return false;">Syntax</p><p class="col hover" onClick="window.location.href='file:///C:/Users/Marc/PycharmProjects/vapor_language/HTML/gett.html'; return false;">Get Interpreter</p></div><div class="row body"><div class="col" id="fade-in-69702175"><p class="bold">Calculator in Vapor</p><pre style="font-size:12px;font-weight:bold;tab-size: 2;"><code >using wait.vap
+
+obj calculator {
+	m calculate(_, expression) {
+		self.clean(expression) true {
+			result = eval(expression)
+			return result
+		} else {
+			error = 'Invalid expression provided'
+			throw error
+		}
+	}
+
+	m clean(_, expression) {
+		allowed = '1234567890+-*/()'
+		expression each letter {
+			letter not in allowed true {
+				return False
+			}
+		}
+		return True
+	}
+}
+
+m calc() {
+	while(True) {
+		expression = input('Enter an expression to be calculated\n')
+		log(calculator().calculate(expression))
+	}
+}
+
+thread calc</code></pre></div><div class="col" id="fade-in-40634219"><p class="bold">Converted to Python</p><pre style="font-size:12px;font-weight:bold;tab-size: 2;"><code >import threading
+import time
+class wait:
+	def __init__(self, t):
+		time.sleep(t)
+
+
+class calculator:
+	def calculate(self, expression):
+		if (self.clean(expression)) is True:
+			result = eval(expression)
+			return result
+		else:
+			error = 'Invalid expression provided'
+			raise Exception(error)
+	def clean(self, expression):
+		allowed = '1234567890+-*/()'
+		for letter in expression:
+			if (letter not in allowed) is True:
+				return False
+		return True
+def calc():
+	while True:
+		expression = input('Enter an expression to be calculated\n')
+		print(calculator().calculate(expression))
+x_0 = threading.Thread(target=calc); x_0.start()</code></pre></div></div></div></body>

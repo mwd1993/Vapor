@@ -1,0 +1,133 @@
+<head><!-- CSS only --><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"><script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> <style>p,div{font-size:18px;}.t-a-c{text-align:center;}.body{width:65%;margin:auto;}.bold{font-size:32px;font-weight:bold;}.syntax-cont{text-align:left;width:50%;margin:auto;padding-top:160px;}.hover:hover{cursor:pointer;background-color:gray;color:white;}</style></head><body><div  style="background-color:transparent;"><div class="t-a-c" style="font-size:42px;">Vapor Language<p style="margin-bottom:60px;">Vapor (vLang) is a language that sits on top of python</p></div><div class="row" style="text-align:center;width:50%;margin:auto;"><p class="col hover" onClick="window.location.href='file:///C:/Users/Marc/PycharmProjects/vapor_language/HTML/index.html'; return false;">Home</p><p class="col hover">Syntax</p><p class="col hover" onClick="window.location.href='file:///C:/Users/Marc/PycharmProjects/vapor_language/HTML/gett.html'; return false;">Get Interpreter</p></div><p style="width:65%;margin:auto;padding-left:120px;padding-right:120px;">The syntax for Vapor is meant to be easy to use and remember, while also being intuitive. Also, since Vapor gets compiled into valid python code, you can write python code and vapor syntaxed code at the same time.</p><div style="width:65%;margin:auto;padding:120px;padding-top:40px;"><h2>Curly Bracket Structure</h2>
+<p>As of v 0.0.1 curly brackets need to be on the same line for the interpreter to not throw a syntax error.</p>
+<p>valid vapor syntax:</p>
+<pre><span style="color: rgb(44, 130, 201);"><strong>true == false {</strong></span><strong>
+<span style="color: rgb(44, 130, 201);">  pass</span>
+</strong><span style="color: rgb(44, 130, 201);"><strong>}</strong></span></pre>
+<p>invalid vapor syntax:</p>
+<pre><span style="color: rgb(44, 130, 201);"><strong>true == false
+{</strong></span><strong>
+</strong><span style="color: rgb(44, 130, 201);"><strong>  pass
+}</strong></span></pre>
+
+<h2>Printing Data</h2>
+<p>You can use the log method</p>
+<pre><span style="color: rgb(44, 130, 201);"><strong>log(&apos;Hello world&apos;)</strong></span>
+
+<strong><span style="color: rgb(204, 204, 204);">   </span><span style="color: rgb(26, 188, 156);">-&gt; Hello World</span></strong></pre>
+<p>But preferably, just start the line with single quotes</p>
+<pre><strong><span style="color: rgb(44, 130, 201);">&apos;Hello World&apos;</span></strong>
+
+<strong><span style="color: rgb(204, 204, 204);">   </span><span style="color: rgb(26, 188, 156);">-&gt; Hello World</span></strong></pre>
+<p>An F string example using the single quote way</p>
+<pre><strong><span style="color: rgb(44, 130, 201);">fruit = &quot;apple&quot;</span></strong></pre>
+<pre><span style="color: rgb(44, 130, 201);"><strong>&apos;The fruit is an [[fruit]]&apos;</strong></span>
+
+<span style="color: rgb(44, 130, 201);"><strong>   </strong></span><span style="color: rgb(26, 188, 156);"><strong>-&gt; The fruit is an apple</strong></span></pre>
+<pre><span style="color: rgb(44, 130, 201);"><strong>expression = 100*5</strong></span></pre>
+<pre><strong><span style="color: rgb(44, 130, 201);">&apos;The expression evaluated to [[str(expression)]]&apos;</span></strong>
+
+<strong><span style="color: rgb(44, 130, 201);">   </span><span style="color: rgb(26, 188, 156);">-&gt; The expression evaluated to 500</span></strong></pre>
+<h2>Importing Vapor libraries</h2>
+<p>You can import your own .vap files into your code using the &apos;using&apos; keyword.</p>
+<p>The standard library wait.vap will be used in this example</p>
+<pre><span style="color: rgb(44, 130, 201);"><strong>using wait.vap</strong></span><strong>
+</strong><span style="color: rgb(44, 130, 201);"><strong>
+range(60) each number {
+   wait(1)
+}</strong></span></pre>
+<h2>If Statements</h2>
+<p>if statements are done by writing out a statement and putting true or false at the end:</p>
+<pre><span style="color: rgb(44, 130, 201);"><strong>number = 1
+
+number == 1 true {
+  &apos;number is 1&apos;
+} else {
+  &apos;number is not 1, it&apos;s actually [[str(number)]]&apos;
+}</strong></span>
+
+<span style="color: rgb(44, 130, 201);"><strong>   </strong></span><span style="color: rgb(26, 188, 156);"><strong>-&gt; &apos;number is 1&apos; </strong></span></pre>
+<h2>Methods / Functions</h2>
+<p>Simply prefix the line with an m</p>
+<pre><span style="color: rgb(44, 130, 201);"><strong>m foo() {
+   return &quot;bar&quot;
+}
+</strong></span></pre>
+<pre><strong><span style="color: rgb(44, 130, 201);"><strong>foo()</strong></span></strong>
+
+<strong><span style="color: rgb(26, 188, 156);">   -&gt; bar</span></strong></pre>
+<h2>Threads</h2>
+<p>You can easily call a method in a thread by prefixing the call with thread</p>
+<pre><span style="color: rgb(44, 130, 201);"><strong>m foo() {
+   return &quot;bar&quot;
+}
+
+</strong></span><strong><span style="color: rgb(44, 130, 201);"><strong>thread foo()</strong></span></strong></pre>
+<p>(foo would be ran in a thread separate from the main thread)</p>
+<h2>Loops</h2>
+<p>Using the keyword &apos;each&apos; you can determine a for loop</p>
+<pre><strong><span style="color: rgb(44, 130, 201);">range(2) each number {</span></strong><span style="color: rgb(44, 130, 201);">
+</span><strong><span style="color: rgb(44, 130, 201);">   &apos;the current number is [[str(number)]]&apos;</span></strong>
+<strong><span style="color: rgb(44, 130, 201);">}</span></strong>
+
+<strong><span style="color: rgb(26, 188, 156);"><strong>   -&gt; the current number is 1</strong>
+<strong>   -&gt; the current number is 2</strong></span></strong></pre>
+<p>Python enumerate equivalence</p>
+<p>The keyword &apos;with&apos; will allow you to provide the index of the loop</p>
+<pre><strong><span style="color: rgb(44, 130, 201);">letters = [&apos;g&apos;,&apos;t&apos;,&apos;p&apos;]</span></strong>
+<span style="color: rgb(44, 130, 201);">
+<strong>letters each letter with curr_index {</strong>
+<strong>   &apos;the current letter: [[letter]] at index: [[str(curr_index)]]&apos;</strong>
+<strong>}</strong>
+</span><span style="color: rgb(26, 188, 156);"><strong>   -&gt; the current letter g at index 0</strong>
+<strong>   -&gt; the current letter: t at index: 1</strong>
+</span><strong><span style="color: rgb(26, 188, 156);">   -&gt; the current letter: p at index: 2</span></strong>
+
+</pre>
+<h2>Classes</h2>
+<p>Create a class by prefixing the line with obj</p>
+<p>a method statement with no name is interpreted as a constructor method ( m (_) )</p>
+<p>an underscore after the first parenthesis is interpreted as &apos;self&apos; in python and only works in the method statement</p>
+<p>use self after using _, ie:</p>
+<pre><span style="color: rgb(44, 130, 201);"><strong>obj person {</strong></span>
+<span style="color: rgb(44, 130, 201);"><strong>
+   # constructor syntax below</strong></span>
+<span style="color: rgb(44, 130, 201);"><strong>
+   m (_, name, age) {
+      self.name = name
+      self.age = age
+   }
+}
+</strong></span>
+<span style="color: rgb(44, 130, 201);"><strong># Create a list of person objects</strong><strong>
+people = [person(&quot;jhonny&quot;,19), person(&quot;debrah&quot;,32)]</strong></span>
+<span style="color: rgb(44, 130, 201);"><strong>
+people each human {
+   &apos;name: [[human.name]], age: [[human.age]]&apos;
+}</strong></span>
+<strong>
+</strong><span style="color: rgb(26, 188, 156);"><strong>  -&gt; name: jhonny, age: 19
+  -&gt; name: debrah, age: 32</strong></span></pre>
+<h2 skip="true"><br>Throw Errors</h2>
+<pre><span style="color: rgb(44, 130, 201);"><strong>test = 1</strong></span>
+
+<strong><span style="color: rgb(44, 130, 201);">test == 1 true {</span></strong>
+<strong><span style="color: rgb(44, 130, 201);"><strong>   throw &apos;this is an error&apos;</strong></span></strong><span style="color: rgb(44, 130, 201);"><strong>
+</strong><strong>}</strong></span>
+
+<span style="color: rgb(26, 188, 156);"><strong>      -&gt; this is an error</strong></span></pre>
+<h2>Built-in Benchmarking Parts of code</h2>
+<pre><span style="color: rgb(44, 130, 201);"><strong>benchmark &apos;my benchmark&apos;</strong></span>
+<strong>
+<span style="color: rgb(44, 130, 201);">range(10000) each number {</span>
+<span style="color: rgb(44, 130, 201);">   number == 0 true {</span></strong>
+   <span style="color: rgb(44, 130, 201);"><strong>&apos;beginning loop&apos;</strong></span>
+<strong><span style="color: rgb(44, 130, 201);">  }</span>
+<span style="color: rgb(44, 130, 201);">}</span></strong>
+<strong>
+</strong><span style="color: rgb(44, 130, 201);"><strong>benchmark end</strong></span>
+
+<span style="color: rgb(26, 188, 156);"><strong>   -&gt; benchmark beginning my benchmark</strong></span>
+<span style="color: rgb(26, 188, 156);"><strong>   -&gt; beginning loop</strong>
+<strong>   -&gt; benchmark time: 200 ms</strong></span></pre>
+</div></div></body>

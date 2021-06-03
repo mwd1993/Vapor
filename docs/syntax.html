@@ -47,23 +47,7 @@ number == 1 true {
 }</strong></span>
 
 <span style="color: rgb(44, 130, 201);"><strong>   </strong></span><span style="color: rgb(26, 188, 156);"><strong>-&gt; &apos;number is 1&apos; </strong></span></pre>
-<h2>Methods / Functions</h2>
-<p>Simply prefix the line with an m</p>
-<pre><span style="color: rgb(44, 130, 201);"><strong>m foo() {
-   return &quot;bar&quot;
-}
-</strong></span></pre>
-<pre><strong><span style="color: rgb(44, 130, 201);"><strong>foo()</strong></span></strong>
 
-<strong><span style="color: rgb(26, 188, 156);">   -&gt; bar</span></strong></pre>
-<h2>Threads</h2>
-<p>You can easily call a method in a thread by prefixing the call with thread</p>
-<pre><span style="color: rgb(44, 130, 201);"><strong>m foo() {
-   return &quot;bar&quot;
-}
-
-</strong></span><strong><span style="color: rgb(44, 130, 201);"><strong>thread foo()</strong></span></strong></pre>
-<p>(foo would be ran in a thread separate from the main thread)</p>
 <h2>Loops</h2>
 <p>Using the keyword &apos;each&apos; you can determine a for loop</p>
 <pre><strong><span style="color: rgb(44, 130, 201);">range(2) each number {</span></strong><span style="color: rgb(44, 130, 201);">
@@ -82,8 +66,33 @@ number == 1 true {
 </span><span style="color: rgb(26, 188, 156);"><strong>   -&gt; the current letter g at index 0</strong>
 <strong>   -&gt; the current letter: t at index: 1</strong>
 </span><strong><span style="color: rgb(26, 188, 156);">   -&gt; the current letter: p at index: 2</span></strong>
-
 </pre>
+  
+<h2>Methods / Functions</h2>
+<p>Simply prefix the line with an m</p>
+<pre><span style="color: rgb(44, 130, 201);"><strong>m foo() {
+   return &quot;bar&quot;
+}
+</strong></span></pre>
+<pre><strong><span style="color: rgb(44, 130, 201);"><strong>foo()</strong></span></strong>
+
+<strong><span style="color: rgb(26, 188, 156);">   -&gt; bar</span></strong></pre>
+<h2>Try/Catch (aka Try/Fail)</h2>
+<p>You can use try statements. Still in elementary stages and subject to syntax change.</p>
+<pre><strong><span style="color: rgb(44, 130, 201);">try {
+   variable = &quot;a&quot; + 1
+} fail {
+   &apos;we failed!&apos;
+}</span></strong></pre>
+  
+<h2>Threads</h2>
+<p>You can easily call a method in a thread by prefixing the call with thread</p>
+<pre><span style="color: rgb(44, 130, 201);"><strong>m foo() {
+   return &quot;bar&quot;
+}
+</strong></span><strong><span style="color: rgb(44, 130, 201);"><strong>thread foo()</strong></span></strong></pre>
+<p>(foo would be ran in a thread separate from the main thread)</p>
+  
 <h2>Classes</h2>
 <p>Create a class by prefixing the line with obj</p>
 <p>a method statement with no name is interpreted as a constructor method ( m (_) )</p>

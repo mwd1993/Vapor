@@ -77,13 +77,6 @@ number == 1 true {
 <pre><strong><span style="color: rgb(44, 130, 201);"><strong>foo()</strong></span></strong>
 
 <strong><span style="color: rgb(26, 188, 156);">   -&gt; bar</span></strong></pre>
-<h2>Try/Catch (aka Try/Fail)</h2>
-<p>You can use try statements. Still in elementary stages and subject to syntax change.</p>
-<pre><strong><span style="color: rgb(44, 130, 201);">try {
-   variable = &quot;a&quot; + 1
-} fail {
-   &apos;we failed!&apos;
-}</span></strong></pre>
   
 <h2>Threads</h2>
 <p>You can easily call a method in a thread by prefixing the call with thread</p>
@@ -92,7 +85,15 @@ number == 1 true {
 }
 </strong></span><strong><span style="color: rgb(44, 130, 201);"><strong>thread foo()</strong></span></strong></pre>
 <p>(foo would be ran in a thread separate from the main thread)</p>
-  
+
+<h2>Try/Catch (aka Try/Fail)</h2>
+<p>You can use try statements. Still in elementary stages and subject to syntax change.</p>
+<pre><strong><span style="color: rgb(44, 130, 201);">try {
+   variable = &quot;a&quot; + 1
+} fail {
+   &apos;we failed!&apos;
+}</span></strong></pre>
+
 <h2>Classes</h2>
 <p>Create a class by prefixing the line with obj</p>
 <p>a method statement with no name is interpreted as a constructor method ( m (_) )</p>

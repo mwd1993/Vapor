@@ -26,3 +26,23 @@ len(message) > 0 true {
   'message has [[len(message)]] words'
 }
 ```
+
+# Fizz Buzz
+```
+m do_fizz_buzz() {
+    range(101) each number {
+        number % 3 == 0 true {
+            'Fizz'
+            continue
+        }
+        number % 5 == 0 true {
+            'FizzBuzz'
+            continue
+        }
+        '[[number]]'
+    }
+    -> 'this is a return value'
+}
+
+return_value = do_fizz_buzz()
+```

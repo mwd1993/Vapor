@@ -1,7 +1,12 @@
 # Vapor
 Vapor (vLang) is a language that sits on top of python
 
-See more here at the official website: https://mwd1993.github.io/Vapor/index.html
+See more here at the official website: https://mwd1993.github.io/Vapor/index.html  
+
+### download the Compiler and then run your .vap files like so  
+```
+vapor_parsor.exe path/to/my_vapor_file.vap args1 arg2 etc
+```
 
 ### printing made simple, included fstring functionality
 

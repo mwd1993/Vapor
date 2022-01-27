@@ -1,39 +1,36 @@
-<head><!-- CSS only --><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"><script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> <style>p,div{font-size:18px;}.t-a-c{text-align:center;}.body{width:65%;margin:auto;}.bold{font-size:32px;font-weight:bold;}.hover:hover{cursor:pointer;background-color:gray;color:white;}.syntax-cont{text-align:left;width:50%;margin:auto;padding-top:160px;}</style></head><body><div  style="background-color:transparent;"><div class="t-a-c" style="font-size:42px;">Vapor Language<p style="margin-bottom:60px;">Vapor (vLang) is a language that sits on top of python</p></div><div class="row" style="text-align:center;width:50%;margin:auto;"><p class="col hover">Home</p><p class="col hover" onClick="window.location.href='https://mwd1993.github.io/Vapor/syntax.html'; return false;">Syntax</p><p class="col hover" onClick="window.location.href='https://mwd1993.github.io/Vapor/get.html'; return false;">Get Interpreter</p></div><div class="row body"><div class="col"><p class="bold">Calculator in Vapor</p><pre style="font-size:12px;font-weight:bold;tab-size: 2;"><code >using wait.vap
+<head><!-- CSS only --><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"><script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> <style>p,div{font-size:18px;}.t-a-c{text-align:center;}.body{margin:auto;}.bold{font-size:32px;font-weight:bold;}.hover:hover{cursor:pointer;background-color:gray;color:white;}.syntax-cont{text-align:left;width:50%;margin:auto;padding-top:160px;}.maxw{width:100%;}.c-gray{background-color:gray;}</style></head><body><div  style="background-color:transparent;"><div class="t-a-c" style="font-size:42px;">Vapor Language<p style="margin-bottom:60px;">Vapor (vLang) is a language that sits on top of python</p></div><div class="row" style="text-align:center;width:50%;margin:auto;"><p class="col hover">Home</p><p class="col hover" onClick="window.location.href='https://mwd1993.github.io/Vapor/syntax.html'; return false;">Syntax</p><p class="col hover" onClick="window.location.href='https://mwd1993.github.io/Vapor/get.html'; return false;">Get Interpreter</p></div><div class="row body"><div class="row maxw"><div class="col-6"><p class="bold" style="padding-left:40%">1) Calculator in Vapor</p><pre style="padding-left:40%;font-size:12px;font-weight:bold;tab-size: 2;"><code >using wait.vap
 
 obj calculator {
-    m calculate(_, expression) {
-        self.clean(expression) true {
-            result = eval(expression)
-            -> result
-        } else {
-            error = 'Invalid expression provided'
-            throw error
-        }
-        -> False
-    }
+	m calculate(_, expression) {
+		self.clean(expression) true {
+			result = eval(expression)
+			return result
+		} else {
+			error = 'Invalid expression provided'
+			throw error
+		}
+	}
 
-    m clean(_, expression) {
-        allowed = '1234567890+-*/()'
-        expression each letter {
-            letter not in allowed true {
-                -> False
-            }
-        }
-        -> True
-    }
+	m clean(_, expression) {
+		allowed = '1234567890+-*/()'
+		expression each letter {
+			letter not in allowed true {
+				return False
+			}
+		}
+		return True
+	}
 }
 
 m calc() {
-    while(True) {
-        expression = input('Enter an expression to be calculated\n')
-        '[[calculator().calculate(expression)]]'
-    }
+	while(True) {
+		expression = input('Enter an expression to be calculated\n')
+		log(calculator().calculate(expression))
+	}
 }
 
-thread calc</code></pre></div><div class="col"><p class="bold">Converted to Python</p><pre style="font-size:12px;font-weight:bold;tab-size: 2;"><code >import threading
+thread calc</code></pre></div><div class="col-6"><p class="bold" style="padding-left:20%">1) Transpiled to Python</p><pre style="padding-left:20%;font-size:12px;font-weight:bold;tab-size: 2;"><code >import threading
 import time
-
-
 class wait:
 	def __init__(self, t):
 		time.sleep(t)
@@ -47,21 +44,129 @@ class calculator:
 		else:
 			error = 'Invalid expression provided'
 			raise Exception(error)
-
+		return False
 	def clean(self, expression):
 		allowed = '1234567890+-*/()'
 		for letter in expression:
 			if (letter not in allowed) is True:
 				return False
 		return True
-
-
 def calc():
 	while True:
 		expression = input('Enter an expression to be calculated\n')
-		print(calculator().calculate(expression))
+		print('' + str(calculator().calculate(expression)) + '')
+x_0 = threading.Thread(target=calc); x_0.start()</code></pre></div></div><div class="row maxw" style="padding-top:60px;"><div class="col-6"><p class="bold" style="padding-left:40%">2) FizzBuzz in Vapor</p><pre style="padding-left:40%;font-size:12px;font-weight:bold;tab-size: 2;"><code >m fizzBuzz(number) {
+	range(number) each numb {
+		numb % 3 == 0 true {
+			'Fizz'
+			continue
+		}
+		numb % 5 == 0 true {
+			'FizzBuzz'
+			continue
+		}
+		'[[numb]]'
+	}
+	-> 'this is a return value'
+	}
+}
 
+fizzBuzz(101)</code></pre></div><div class="col-6 w-100"><p class="bold" style="padding-left:20%">2) Transpiled to Python</p><pre style="padding-left:20%;font-size:12px;font-weight:bold;tab-size: 2;"><code >import threading
 
-x_0 = threading.Thread(target=calc);
-x_0.start()
-</code></pre></div></div></div></body>
+def fizzBuzz(number):
+	for numb in range(number):
+		if (numb % 3 == 0) is True:
+			print('Fizz')
+			continue
+		if (numb % 5 == 0) is True:
+			print('FizzBuzz')
+			continue
+		print('' + str(numb) + '')
+	return 'this is a return value'
+fizzBuzz(101)</code></pre></div></div><div class="row maxw" style="padding-top:60px;"><div class="col-6"><p class="bold" style="padding-left:40%">3) keyBoardHandle<br>( standard libray .vap class )</p><pre style="padding-left:40%;font-size:12px;font-weight:bold;tab-size: 2;"><code >import win32gui
+import win32api
+import win32con
+from ctypes import windll
+using winHandle.vap
+import time
+
+obj keyBoardHandle {
+	keys = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','1','2','3','4','5','6','7','8','9']
+	# VDocs: Press a key down
+	m pressKey(_, key, disableKeyRelease = False) {
+		type(key) is int true {
+			win32api.keybd_event(key, 0, 0, 0)
+			not disableKeyRelease true {
+				win32api.keybd_event(key, 0, win32con.KEYEVENTF_KEYUP, 0)
+			}
+		} else {
+			key in self.keys true {
+				kc = self.getVKCode(key)
+				win32api.keybd_event(kc, 0, 0, 0)
+				not disableKeyRelease true {
+					win32api.keybd_event(kc, 0, win32con.KEYEVENTF_KEYUP, 0)
+				}
+			}
+		}
+	}
+	# VDocs: Hold the key for 'delay' seconds
+	m holdKey(_, key, delay) {
+		ts = time.time()
+		while(time.time() - ts <= delay) {
+			self.pressKey(key, True)
+			time.sleep(0.1)
+		}
+		self.pressKey(key)
+	}
+	# VDocs: Gets the virtual key code of a single letter
+	m getVKCode(_, key) {
+		assert-type key str
+		result = windll.User32.VkKeyScanW(ord(key))
+		shift_state = (result & 0xFF00) >> 8
+		vk_key = result & 0xFF
+		-> vk_key
+	}
+}
+
+</code></pre></div><div class="col-6 w-100"><p class="bold" style="padding-left:20%">3) Transpiled to Python</p><pre style="padding-left:20%;font-size:12px;font-weight:bold;tab-size: 2;"><code >import threading
+import win32gui
+import win32api
+import win32con
+from ctypes import windll
+import time
+
+class keyBoardHandle:
+	keys = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','1','2','3','4','5','6','7','8','9']
+
+	# VDocs: Press a key down
+	def pressKey(self, key, disableKeyRelease = False):
+		if (type(key) is int) is True:
+			win32api.keybd_event(key, 0, 0, 0)
+
+			if (not disableKeyRelease) is True:
+				win32api.keybd_event(key, 0, win32con.KEYEVENTF_KEYUP, 0)
+		else:
+			if (key in self.keys) is True:
+				kc = self.getVKCode(key)
+				win32api.keybd_event(kc, 0, 0, 0)
+
+				if (not disableKeyRelease) is True:
+					win32api.keybd_event(kc, 0, win32con.KEYEVENTF_KEYUP, 0)
+
+	# VDocs: Hold the key for 'delay' seconds
+	def holdKey(self, key, delay):
+		ts = time.time()
+		while time.time() - ts <= delay:
+			self.pressKey(key, True)
+			time.sleep(0.1)
+
+		self.pressKey(key)
+
+	# VDocs: Gets the virtual key code of a single letter
+	def getVKCode(self, key):
+		if str(type(key)) != str(str): raise Exception("assert-type fail: key(<class 'str'>) is NOT of type str")
+		result = windll.User32.VkKeyScanW(ord(key))
+		shift_state = (result & 0xFF00) >> 8
+		vk_key = result & 0xFF
+		return vk_key
+</code></pre></div></div></div></div></body>

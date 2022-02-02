@@ -5,7 +5,9 @@ See more here at the official website: https://mwd1993.github.io/Vapor/index.htm
 
 # Vapor IDE In Development ( Coming Soon! )
 
-<img src="https://raw.githubusercontent.com/mwd1993/Vapor/main/Images/VaporIDE_Alpha_Example1png.png" width="700" height="450">
+<img src="https://raw.githubusercontent.com/mwd1993/Vapor/main/Images/VaporIDE_Alpha_Example1png.png" width="700" height="450">  
+
+# Getting Started
 
 ### download the Compiler and then run your .vap files like so  
 ```

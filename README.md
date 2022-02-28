@@ -1,7 +1,5 @@
 # Vapor
-Vapor (vLang) is a language that sits on top of python.  
-What this means, is that you write Vapor code, and it  
-transpiles down into valid Python code.
+Vapor (vLang) is a dynamic (but supports a type system) programming language that transpiles down to valid python code.
 
 See more here at the official website: https://mwd1993.github.io/Vapor/index.html  
 

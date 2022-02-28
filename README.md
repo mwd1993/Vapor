@@ -9,7 +9,7 @@ See more here at the official website: https://mwd1993.github.io/Vapor/index.htm
 
 # Getting Started
 
-### download the Compiler and then run your .vap files like so  
+### [download](https://github.com/mwd1993/Vapor/releases) the Compiler and then run your .vap files like so  
 ```
 vapor_parsor.exe path/to/my_vapor_file.vap args1 arg2 etc
 ```

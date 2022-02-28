@@ -14,6 +14,8 @@ See more here at the official website: https://mwd1993.github.io/Vapor/index.htm
 vapor_parsor.exe path/to/my_vapor_file.vap args1 arg2 etc
 ```
 
+# Syntax Examples
+
 ### printing made simple, included fstring functionality
 
 ```

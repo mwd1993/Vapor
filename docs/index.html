@@ -4,7 +4,7 @@ obj calculator {
 	m calculate(_, expression) {
 		self.clean(expression) true {
 			result = eval(expression)
-			return result
+			-> result
 		} else {
 			error = 'Invalid expression provided'
 			throw error
@@ -15,10 +15,10 @@ obj calculator {
 		allowed = '1234567890+-*/()'
 		expression each letter {
 			letter not in allowed true {
-				return False
+				-> False
 			}
 		}
-		return True
+		-> True
 	}
 }
 
@@ -68,7 +68,6 @@ x_0 = threading.Thread(target=calc); x_0.start()</code></pre></div></div><div cl
 		'[[numb]]'
 	}
 	-> 'this is a return value'
-	}
 }
 
 fizzBuzz(101)</code></pre></div><div class="col-6 w-100"><p class="bold" style="padding-left:20%">2) Transpiled to Python</p><pre style="padding-left:20%;font-size:12px;font-weight:bold;tab-size: 2;"><code >import threading

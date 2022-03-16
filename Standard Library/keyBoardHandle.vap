@@ -1,0 +1,68 @@
+import win32gui
+import win32api
+import win32con
+from ctypes import windll
+using winHandle.vap
+import time
+
+obj keyBoardHandle {
+	keys = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','1','2','3','4','5','6','7','8','9']
+	# VDocs: Press a key down
+	m pressKey(_, key, disableKeyRelease = False) {
+		type(key) is int true {
+			win32api.keybd_event(key, 0, 0, 0)
+			not disableKeyRelease true {
+				win32api.keybd_event(key, 0, win32con.KEYEVENTF_KEYUP, 0)
+			}
+		} else {
+			key in self.keys true {
+				kc = self.getVKCode(key)
+				win32api.keybd_event(kc, 0, 0, 0)
+				not disableKeyRelease true {
+					win32api.keybd_event(kc, 0, win32con.KEYEVENTF_KEYUP, 0)
+				}
+			}
+		}
+	}
+	# VDocs: Hold the key for 'delay' seconds
+	m holdKey(_, key, delay) {
+		ts = time.time()
+		while(time.time() - ts <= delay) {
+			self.pressKey(key, True)
+			time.sleep(0.1)
+		}
+		self.pressKey(key)
+	}
+	# VDocs: Gets the virtual key code of a single letter
+	m getVKCode(_, key) {
+		assert-type key str
+		result = windll.User32.VkKeyScanW(ord(key))
+		shift_state = (result & 0xFF00) >> 8
+		vk_key = result & 0xFF
+		return vk_key
+	}
+}
+
+# wh = winHandle()
+# wh.setWindowActive(wh.getWindowByName("notepad"))
+# time.sleep(0.5)
+k = keyBoardHandle()
+
+# m test1() {
+#	k.holdKey(win32con.VK_SHIFT, 1)
+# }
+# m test2() {
+#	k.holdKey("1", 1)
+# }
+# thread test1
+# thread test2
+
+# k.register_hotkey('a',t)
+
+
+
+
+
+
+
+

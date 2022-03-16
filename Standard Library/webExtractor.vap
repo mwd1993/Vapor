@@ -1,0 +1,45 @@
+import urllib.request
+import http.client
+using htmlParser.vap
+obj webExtractor {
+	# VDocs: Constructor
+	m (_) {
+		self.headers={}
+		self.headers['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36'
+		self.headers['User-Agent'] = self.headers['User-Agent'] + ' (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
+	}
+
+	# VDocs: Less reliable method call to get the HTML from a page.
+	m getHtml2(_, website) {
+		assert-type website str
+		contents = urllib.request.urlopen(website).read()
+		-> contents
+	}
+
+	# VDocs: Most reliable method call to get the HTML from a page.
+	m getHtml(_, website) {
+		assert-type website str
+		website = website.replace("https://","").replace("http://","")
+		webFirst = website.split("/")[0]
+		connectionOpen = http.client.HTTPSConnection(webFirst)
+		connectionOpen .request('GET', website.replace(webFirst, "").strip())
+		response = connectionOpen .getresponse()
+		content = response .read()
+		connectionOpen .close()
+		html = content.decode('utf-8')
+		-> html
+	}
+}
+
+# we = webExtractor()
+# data = we.getHtml2("https://webscraper.io/test-sites")
+# hp = htmlParser(data)
+# cr = hp.selector("copyright")
+# '[[data]]'
+# '[[cr]] -\n\n[[hp.getInnerHtml(cr)]]'
+
+
+
+
+
+

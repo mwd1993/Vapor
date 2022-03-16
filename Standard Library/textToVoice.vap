@@ -1,0 +1,39 @@
+import win32com.client
+import os
+from win32com.client import Dispatch
+
+obj textToVoice {
+	speaker = Dispatch("SAPI.SpVoice")
+
+	# VDocs: Constructor, optional voice setter with first argument
+	m (_, voiceIndex = 0) {
+		self.speaker.Voice = self.speaker.GetVoices()[voiceIndex]
+	}
+
+	# VDocs: Speak some text, with volume and rate
+	m speak(_, text : str, volume=45, rate=2) {
+		assert-type rate int
+		self.speaker.Rate = rate
+		self.speaker.Volume = volume
+		self.speaker.Speak(text)
+	}
+
+	# VDocs: Set the voice type of the speaker
+	m setVoice(_, index : int) {
+		assert-type index int
+		voices = self.speaker.GetVoices()
+		index > len(voices)-1 true {
+			index = len(voices)-1
+		}
+		self.speaker.Voice = voices[index]
+	}
+}
+
+
+
+
+
+
+
+
+

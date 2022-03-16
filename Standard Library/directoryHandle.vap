@@ -1,0 +1,21 @@
+import os
+
+obj directoryHandle {
+	# VDocs: Gets current directory
+	m currentDirectory(_) {
+		-> os.path.dirname(os.path.realpath(__file__))
+	}
+	# VDocs: Gets current working directory
+	m workingDirectory(_) {
+		-> os.getcwd()
+	}
+	# VDocs: Checks if a directory exists
+	m exists(_, dir) {
+		-> os.path.isdir(dir)
+	}
+	# VDocs: Checks if a file exists
+	m fileExists(_, dir) {
+		-> os.path.isfile(dir)
+	}
+}
+

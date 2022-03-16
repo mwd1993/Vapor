@@ -1,0 +1,42 @@
+import winsound
+import time
+
+obj soundHandle {
+	# VDocs: Plays a wav using a default python library 'windsound'
+	m playWAV(_, dir : str, doasync=False, loop = False) {
+		assert-type dir str
+		loop true {
+			winsound.PlaySound(dir, winsound.SND_LOOP + winsound.SND_ASYNC)
+		} else {
+			doasync true {
+				winsound.PlaySound(dir, winsound.SND_ASYNC)
+			} else {
+				winsound.PlaySound(dir, winsound.SND_FILENAME)
+			}
+		}
+	}
+	# VDocs: Plays an mp3 on windows using a batch call to a powershell command
+	m playMP3(_, dir : str, volume : float) {
+		assert-type volume float
+		assert-type dir str
+		# line = "cmd /c start /min "
+		line = 'powershell -windowstyle hidden -noexit -command "Add-Type -AssemblyName presentationCore;'
+		line = line + '$mediaPlayer = New-Object system.windows.media.mediaplayer;'
+		line = line + "$mediaPlayer.open('" + dir + "');"
+		line = line + "$mediaPlayer.Volume = " + str(volume) + ";"
+		line = line + '$mediaPlayer.Play();"'
+		cmd-line line
+	}
+	# VDocs: Plays the default beep on windows with frequency and duration args
+	m beep(_, frequency, duration) {
+		winsound.Beep(frequency, duration)
+	}
+}
+
+# sh = soundHandle()
+# sh.playMP3('C:/Users/Marc/Desktop/knuckleup.mp3', 0.04)
+
+
+
+
+

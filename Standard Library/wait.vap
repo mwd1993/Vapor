@@ -1,0 +1,7 @@
+import time
+
+obj wait {
+    m init(self, t) {
+        time.sleep(float(t))
+    }
+}

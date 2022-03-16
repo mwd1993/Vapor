@@ -1,0 +1,48 @@
+import os, sys
+import ctypes
+from ctypes import wintypes
+import win32con
+import time
+
+HOTKEYS = []
+hotkeystimeout = dict
+hotkeyslasthandled = dict
+
+# VDocs: provide a tuple with atleast 2 indexes. Takes virtual key codes, and then a method to call
+m addHotKey(key_and_modifiers: tuple, method, timeout = 0) {
+	assert-type key_and_modifiers tuple
+	global HOTKEYS, hotkeystimeout
+	d = dict
+	d["keys"] = key_and_modifiers
+	d["command"] = method
+	hotkeystimeout[key_and_modifiers] = timeout
+	hotkeyslasthandled[key_and_modifiers] = time.time()*1000.0
+	HOTKEYS.append(d)	
+}
+
+# VDocs: Call this method after declaring all hot keys, to start listening for key events
+m deployHotKeys() {
+	for i, h in enumerate(HOTKEYS):
+		vk, modifiers = h["keys"]
+		print("Registering id", i, "for key", vk)
+		if not ctypes.windll.user32.RegisterHotKey(None, i, modifiers, vk):
+			print("Unable to register id", i)
+	try:
+		msg = wintypes.MSG()
+		while ctypes.windll.user32.GetMessageA(ctypes.byref(msg), None, 0, 0) != 0:
+			if msg.message == win32con.WM_HOTKEY:
+				timePassed = (time.time() * 1000.0) - hotkeyslasthandled[HOTKEYS[msg.wParam]["keys"] ]
+				timePassed >= hotkeystimeout[HOTKEYS[msg.wParam]["keys"]] true {
+					HOTKEYS[msg.wParam]["command"]()
+					hotkeyslasthandled[HOTKEYS[msg.wParam]["keys"]] = time.time() * 1000.0
+				}
+			ctypes.windll.user32.TranslateMessage(ctypes.byref(msg))
+			ctypes.windll.user32.DispatchMessageA(ctypes.byref(msg))
+	finally:
+		for i, h in enumerate(HOTKEYS):
+			ctypes.windll.user32.UnregisterHotKey(None, i)
+}
+
+# addHotKey((0x50, None), t,1000)
+# deployHotKeys()
+

@@ -1,0 +1,54 @@
+import os
+
+obj file {
+	# VDocs: Constructor - file path
+	m (_, file_path, relative_path=True) {
+		if(relative_path) {
+			file_path = os.getcwd() + '/' + file_path
+		}
+		self.file_path = file_path
+	}
+	# VDocs: Checks to see if the file handle exists
+	m exists(_) {
+		return os.path.exists(self.file_path)
+	}
+	# VDocs: Read data from a file
+	m read(_, as_array=False) {
+		if(self.exists()) {
+			f = open(self.file_path,'r')
+			if(as_array) {
+				read = f.read()
+				new_read = []
+				read.split('\n') each r {
+					new_read.append(r)
+				}
+
+				f.close()
+				return new_read
+			}
+			read = f.read()
+			f.close()
+			return read
+		}
+		return ""
+	}
+	# VDocs: Write data to a file
+	m write(_, data) {
+		f = open(self.file_path, 'w+')
+		f.write(data)
+		f.close()
+
+		return self
+	}
+	# VDocs: Append data to a file
+	m append(_, data) {
+		if(self.exists()) {
+			f = open(self.file_path, 'a+')
+			f.write(data)
+			f.close()
+		}
+		return self
+	}
+}
+
+

@@ -1,0 +1,161 @@
+import win32gui
+
+obj winHandle {
+	sw_maximized = 3
+	sw_normal = 1
+	sw_minimized = 2
+	sw_constants = [1, 2, 3]
+	wm_close = 16
+	topmost = -1
+	topmostnot = -2
+
+	# VDocs: Gets all of the windows on a desktop
+	m getAllWindows(_, hasName=False) {
+		assert-type hasName bool
+		# VDocs: Enumerator method helper
+		m winHandleMethod(handle, listfirst) {
+			listfirst.append({ "handle":handle, "name":win32gui.GetWindowText(handle)})
+		}
+		listfirst = []; win32gui.EnumWindows(winHandleMethod, listfirst)
+		-> listfirst
+	}
+	# VDocs: Get the active window on the desktop
+	m getActiveWindow(_, name=False) {
+		assert-type name bool
+		name true {
+			-> self.getWindowNameFromHandle(win32gui.GetForegroundWindow())
+		} else {
+			-> win32gui.GetForegroundWindow()
+		}
+	}
+	# VDocs: returns a window handle by name
+	m getWindowByName(_, name) {
+		assert-type name str
+		windows = self.getAllWindows(True)
+		windows each window {
+			name.lower() in window["name"].lower() true {
+				-> window["handle"]
+			}
+		}
+		-> False
+	}
+	# VDocs: Returns a window name of a handle
+	m getWindowNameFromHandle(_, handle) {
+		assert-type handle int
+		-> win32gui.GetWindowText(handle)
+	}
+	# VDocs: Get the left, top, right, bottom of a window handle
+	m getWindowData(_, handle) {
+		assert-type handle int
+		-> win32gui.GetWindowRect(handle)
+	}
+	# VDocs: Get the height of a window
+	m getWindowHeight(_, handle) {
+		assert-type handle int
+		data = self.getWindowData(handle)
+		width = data[2] -  data[0]
+		-> width
+	}
+	# VDocs: Get the width of a window handle
+	m getWindowWidth(_, handle) {
+		assert-type handle int
+		data = self.getWindowData(handle)
+		height = data[3] - data[1]
+		-> height
+	}
+	# VDocs: Set the window size of a handle
+	m setWindowSize(_, handle, width_height: list) {
+		assert-type width_height list
+		assert-type handle int
+		self.getWindowStatus(handle) == "MAXIMIZED" true {
+			'Window handle is set to maximized and cannot be altered'
+			-> False
+		}
+		data = self.getWindowData(handle)
+		win32gui.MoveWindow(handle, data[0], data[1], width_height[0], width_height[1], True)
+		-> True
+	}
+	# VDocs: Get the status of a window handle
+	m getWindowStatus(_, handle) {
+		assert-type handle int
+		tup = win32gui.GetWindowPlacement(handle)
+		tup[1] == 3 true {
+			-> "MAXIMIZED"
+		}
+		tup[1] == 2 true {
+			-> "MINIMIZED"
+		}
+		tup[1] == 1 true {
+			-> "NORMAL"
+		}
+		-> "UNKNOWN"
+	}
+	# VDocs: Set the window status of: SW_CONSTANT
+	m setWindowStatus(_, handle, sw_constant) {
+		assert-type handle int
+		assert-type sw_constant int
+		curr_status = self.getWindowStatus(handle)
+		sw_constant in self.sw_constants true {
+			win32gui.ShowWindow(handle, sw_constant)
+			-> True
+		}
+		-> False
+	}
+	# VDocs: Set window position [x,y]
+	m setWindowPosition(_, handle, x_y : list) {
+		assert-type handle int
+		assert-type x_y list
+		len(x_y) == 2 true {
+			width = self.getWindowWidth(handle)
+			height = self.getWindowHeight(handle)
+			win32gui.MoveWindow(handle, x_y[0], x_y[1], width, height, True)
+			-> True
+		}
+		-> False
+	}
+	# VDocs: Makes the handle window the active one
+	m setWindowActive(_, handle) {
+		assert-type handle int
+		win32gui.SetForegroundWindow(handle)
+		win32gui.SetActiveWindow(handle)
+	}
+	# VDocs: Flash a window, optional to make active
+	m windowFlash(_, handle, setWindowActive = False) {
+		assert-type handle int
+		assert-type setWindowActive bool
+		win32gui.FlashWindow(handle, setWindowActive)
+		-> True
+	}
+	# VDocs: Close a window
+	m windowClose(_, handle) {
+		assert-type handle int
+		win32gui.PostMessage(handle, self.wm_close, 0, 0)
+		-> True
+	}
+	# VDocs: Window handle always on top flag set
+	m setWindowTop(_, handle) {
+		assert-type handle int
+		x, y, xx, yy = self.getWindowData(handle)
+		win32gui.SetWindowPos(handle, self.topmost, x, y, xx, yy, 0) 
+	}
+	# VDocs: Remove the always on top flag
+	m setWindowTopNot(_, handle) {
+		assert-type handle int
+		x, y, xx, yy = self.getWindowData(handle)
+		win32gui.SetWindowPos(handle, self.topmostnot, x, y, xx, yy, 0) 
+	}
+}
+
+# wh = winHandle()
+# wh.setWindowTop(wh.getWindowByName("chrome"))
+# wh.setWindowTopNot(wh.getWindowByName("chrome"))
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,39 @@
+import random
+
+obj rand {
+	# VDocs: Constructor, x, y as int
+	m (_,x,y=-1) {
+		y == -1 true {
+			y = x
+			x = 0
+		}
+		self.value = random.randrange(x,y + 1)
+	}
+	# VDocs: actual representation value
+	m __repr__(_) {
+		-> self.value
+	}
+	# VDocs: str representation value
+	m __str__(_) {
+		-> str(self.value)
+	}
+}
+
+obj randf {
+	# VDocs:  Constructor, x, y as float
+	m (_,x,y=-1) {
+		y == -1 true {
+			y = x
+			x = 0
+		}
+		self.value = random.uniform(x,y)
+	}
+	# VDocs: actual representation value
+	m __repr__(_) {
+		-> self.value
+	}
+	# VDocs: str representation value
+	m __str__(_) {
+		-> str(self.value)
+	}
+}

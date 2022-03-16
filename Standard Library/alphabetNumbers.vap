@@ -1,0 +1,70 @@
+obj alphabetNumbers {
+	alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+	numbers = ['0','1','2','3','4','5','6','7','8','9']
+
+	# VDocs: Checks to see if a string has numbers
+	m hasLetters(_, string) {
+		string each character {
+			character in self.alphabet true {
+				-> True
+			}
+		}
+		-> False
+	}
+
+	# VDocs: Checks to see if a string contains numbers
+	m hasNumbers(_, string) {
+		string each character {
+			character in self.numbers true {
+				-> True
+			}
+		}
+		-> False
+	}
+
+	# VDocs: Checks if a string contains letters only
+	m isLettersOnly(_, string) {
+		string each letter {
+			letter in self.numbers true {
+				-> False
+			}
+		}
+		-> True
+	}
+
+	# VDocs: Checks if string contains numbers only
+	m isNumberOnly(_, string) {
+		string in self.numbers and string not in self.alphabet true {
+			-> True
+		}
+		-> False
+	}
+
+	# VDocs: Pulls all numbers from a string
+	m pullNumbers(_, string) {
+		ret = []
+		string each character {
+			character in self.numbers true {
+				ret.append(character)
+			}
+		}
+		-> ret
+	}
+	
+	# VDocs: Pulls all letters from a string
+	m pullLetters(_, string) {
+		ret = []
+		string each character {
+			character in self.alphabet true {
+				ret.append(character)
+			}
+		}
+		-> ret
+	}
+}
+
+# a = alphabetNumbers()
+# r = a.hasLetters('1234')
+# r = a.pullNumbers('123abc321cba')
+# '[[r]]'
+

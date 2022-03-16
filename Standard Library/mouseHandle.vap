@@ -1,0 +1,65 @@
+# pip install pywin32
+import win32api
+import win32con
+import time
+
+obj mouseHandle {
+	me_left_down = 2
+	me_left_up = 4
+	me_right_down = 0x0008
+	me_right_up = 0x0010
+	me_move_absolute = 0x8000
+	me_move_event = 0x0001
+
+	# VDocs: Gets the current mouse position
+	m getPosition(_, as_list=False) {
+		as_list true {
+			-> [win32api.GetCursorPos()[0], win32api.GetCursorPos()[1]]
+		}
+		-> win32api.GetCursorPos()
+	}
+	# VDocs: Click the mouse left or right
+	m click(_, x, y, left=True) {
+		assert-type left bool
+		left == True true{
+			self.move(x, y)
+			win32api.mouse_event(self.me_left_down,x,y,0,0)
+			time.sleep(0.1)
+			win32api.mouse_event(self.me_left_up,x,y,0,0)
+			time.sleep(0.05)
+			# time.sleep(0.2)
+		} else {
+			self.move(x, y)
+			win32api.mouse_event(self.me_right_down,x,y,0,0)
+			time.sleep(0.1)
+			win32api.mouse_event(self.me_right_up,x,y,0,0)
+			time.sleep(0.05)
+			# time.sleep(0.3)
+		}
+	}
+	# VDocs: Move the mouse to a point on the desktop
+	m move(_, x, y) {
+		# win32api.mouse_event(0x8000 | 0x0001, dx* scalex, dy* scaley, 0, 0);
+		win32api.SetCursorPos((x, y))
+		time.sleep(0.05)
+	}
+	# VDocs: Get current resolution of desktop
+	m desktopResolution(_) {
+		-> [win32api.GetSystemMetrics(0), win32api.GetSystemMetrics(1)]
+	}
+}
+
+# mh = mouseHandle()
+# mh.move(10,10)
+# mh.click(10,10, False)
+
+
+
+
+
+
+
+
+
+
+

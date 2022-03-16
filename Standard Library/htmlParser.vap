@@ -1,0 +1,112 @@
+obj htmlParser {
+	elements = []
+	# VDocs: Constructor, html string to be provided
+	m (_, html) {
+		self.html = html
+		htmlsplit = html.split('>')
+		htmlsplit each element {
+			el = element + ">"
+			eltrim = element.strip()
+			len(eltrim) > 0 true {
+				self.elements.append(el.strip())
+			} else {
+				# 'HTML structure ended'
+				pass
+			}
+		}
+	}
+	# VDocs: Finds a sub string in an element and returns the element selection dictionary
+	m selector(_, tag_selection, ignore_up_to_index= 0) {
+		s = ignore_up_to_index
+		index = 0
+		self.elements each el with elindex{
+			tag_selection.lower() in el.lower() true {
+				index >= s true {
+					-> {'element':el, 'find-index':index, 'line-index':elindex}
+				}
+				index = index + 1
+			}
+		}
+		-> False
+	}
+
+	# VDocs: Finds a sub string in an element and returns ALL element selection_dictionary that match
+	m selectorAll(_, tag_selection) {
+		sindex = 0
+		sellist = []
+		while(self.selector(tag_selection, sindex) is not False) {
+			sel = self.selector(tag_selection, sindex) 
+			sellist.append(sel)
+			sindex = sindex + 1
+		}
+		-> sellist
+	}
+	# VDocs: Each child element is appended to a list and returned
+	m getInnerHtml(_, selection_dict) {
+		assert-type selection_dict dict
+		ln = selection_dict['line-index']
+		innerHtmlList = []
+		typeset = ""
+		diveindex = -1
+		self.elements each el with ind {
+			ind < ln true {
+				continue
+			}
+			nextEl = el
+			typeset == "" true {
+				typeset = self.getType(el)
+			}
+			'<' in nextEl and '/' in nextEl and typeset in nextEl true {
+				# == '</' + typeset + '>'
+				diveindex = diveindex - 1
+				# 'decrease diveindex to [[diveindex]] on el [[nextEl]]'
+			} else {
+				scheck = '<' + typeset
+				scheck in nextEl true {
+					diveindex = diveindex + 1
+					# 'increase diveindex to [[diveindex]] on el [[nextEl]]'
+				}
+			}
+			diveindex <= -1 true {
+				break
+			}
+			innerHtmlList.append(el)
+		}
+		-> innerHtmlList
+	}
+
+	m getValue(_, selection_dict) {
+		assert-type selection_dict dict
+		'[[selection_dict]]'
+	}
+
+	# VDocs: Gets the type of element from an html string
+	m getType(_, htmlString) {
+		between1 = "<"
+		between2 = ">"
+		between = self.str_between(htmlString, between1, between2)
+		split = between.split(" ")
+		len(split) > 0 true {
+			-> split[0].strip()
+		} else {
+			-> between.strip()
+		}
+	}
+	# VDocs: Find string between two chars
+	m str_between(self, string, start, end) {
+		len_until_end_of_first_match = string.find(start) + len(start)
+		after_start = string[len_until_end_of_first_match:]
+		return string[string.find(start) + len(start):len_until_end_of_first_match + after_start.find(end)]
+	}
+}
+
+
+
+
+
+
+
+
+
+
+

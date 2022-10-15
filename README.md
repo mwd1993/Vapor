@@ -5,9 +5,9 @@ See more here at the official website: https://mwd1993.github.io/Vapor/index.htm
 
 # Vapor IDE In Development ( Coming Soon! )
 
-<img src="https://raw.githubusercontent.com/mwd1993/Vapor/main/Images/VaporIDE_Alpha_Example1png.png" width="700" height="450">  
+<img src="https://github.com/mwd1993/Vapor-IDE/raw/main/Images/VaporIDE_1.png" width="700" height="450">  
 
-Image Description: Uses several standard .vap libraries, to fetch the current price of Bitcoin.  
+Image Description: Utilizes a standard library (written in Vapor), to make a window/app, stay on top of all other windows and uses cmd line logic (potentially)
 
 # Getting Started
 
